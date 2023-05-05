@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.aa67b4bf.css",
+    "main.js": "/static/js/main.053282a6.js",
+    "static/js/496.c273465e.chunk.js": "/static/js/496.c273465e.chunk.js",
+    "static/media/google.png": "/static/media/google.9559747b37f156384069.png",
+    "static/media/Qrack_logo.svg": "/static/media/Qrack_logo.ff617a63ea83edaf06b56f3ce49f2e54.svg",
+    "index.html": "/index.html",
+    "main.aa67b4bf.css.map": "/static/css/main.aa67b4bf.css.map",
+    "main.053282a6.js.map": "/static/js/main.053282a6.js.map",
+    "496.c273465e.chunk.js.map": "/static/js/496.c273465e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aa67b4bf.css",
+    "static/js/main.053282a6.js"
+  ]
+}

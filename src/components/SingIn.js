@@ -6,7 +6,6 @@ import { faEye, faEyeSlash, faEnvelope, faLock } from '@fortawesome/free-solid-s
 import './forms.css'
 import facebookLogo from "../images/facebook.png";
 import googleLogo from "../images/google.png";
-import PasswordReset from "./PasswordReset";
 import QrackLogo from "../svg/Qrack_logo.svg";
 
 
@@ -15,7 +14,7 @@ const SignIn = ({ toggleSignUp }) => {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [error, setError] = useState("");
-const [rememberMe, setRememberMe] = useState(false);
+const [rememberMe] = useState(false);
 const [inputError, setInputError] = useState(false);
 
 const handleRememberMeChange = async (e) => {
@@ -160,7 +159,7 @@ return (
 			</span>
 		</div>
     <div className="submit-ctn">
-    <button class="button-53" role="button">Aceptar</button>
+    <button class="button-53">Aceptar</button>
     </div>
 		</form>
 		<p>

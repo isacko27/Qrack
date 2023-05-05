@@ -14,11 +14,6 @@ const Welcome = ({ user }) => {
   const qrValue = `${window.location.protocol}//${window.location.host}/qr/${user.uid}`;
   const qrRef = useRef();
 
-  const toggleTheme = () => {
-    const body = document.querySelector('body');
-    body.classList.toggle('dark');
-  }
-
   const handleUrlChange = (event) => {
     setWebRedirect(event.target.value);
   };
