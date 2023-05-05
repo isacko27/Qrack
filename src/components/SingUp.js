@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import QRCode from "react-qr-code";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import './forms.css'
+import facebookLogo from "../images/facebook.png";
+import googleLogo from "../images/google.png";
+import QrackLogo from "../svg/Qrack_logo.svg";
 
 const SignUp = ({ toggleSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [qrCodeValue, setQrCodeValue] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const passwordRef = useRef(null);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -33,75 +37,93 @@ const SignUp = ({ toggleSignUp }) => {
         return;
       }
   
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setQrCodeValue(user.uid);
+      await createUserWithEmailAndPassword(auth, email, password);
+
     } catch (error) {
       console.error(error.message);
       setError("Ocurrió un error al crear la cuenta");
     }
   };
+  const handleTogglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+    passwordRef.current.type = passwordRef.current.type === "password" ? "text" : "password";
+  }
+
   return (
-    <div className="auth-container">
-      {qrCodeValue ? (
-        <div>
-          <h1>Código QR</h1>
-          <QRCode value={qrCodeValue} size={256} />
-          <p>Escanea el código QR para acceder a tu perfil</p>
-        </div>
-      ) : (
-        <div>
-          <h1>Registrarse</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Correo electrónico:</label>
+    <section className="ctn">
+      <div className="auth-container">
+      <div className="centered-container">
+        <h3>
+          <img src={QrackLogo} alt="Qrack Logo" style={{ width: "150px", height: "auto" }} />
+        </h3>
+        <h2 className="title">Registrarse</h2>
+      </div>
+        <section className="ctn-logins-grid">
+          <div className="facebook-login-ctn">
+            <img src={facebookLogo} alt="Facebook" />
+          </div>
+          <div className="google-login-ctn">
+            <img src={googleLogo} alt="Google" />
+          </div>
+        </section>
+
+        <span className="or">or</span>
+        <form onSubmit={handleSubmit}>
+        <div className={`ctn-form-email${error ? " input-error" : ""}`}>
+            <div className="email-icon-ctn">
+              <FontAwesomeIcon icon={faEnvelope} />
+            </div>
             <input
-              id="email"
+              className="form-email"
               type="email"
-              placeholder="ejemplo@correo.com"
+              placeholder="Correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor="password">Contraseña:</label>
-            <div className="ctn-form-password">
-              <div className="password-icon-ctn">
-                <i className="fas fa-lock"></i>
-              </div>
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="********"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="form-password"
-              />
-              <div className="eye-icon-ctn" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <i className="far fa-eye-slash"></i> : <i className="far fa-eye"></i>}
-              </div>
+          </div>
+          <div className={`ctn-form-password${error ? " input-error" : ""}`}>
+            <div className="lock-icon-ctn">
+              <FontAwesomeIcon icon={faLock} />
             </div>
-            <label htmlFor="confirmPassword">Confirmar contraseña:</label>
-            <div className="ctn-form-password">
-              <div className="password-icon-ctn">
-                <i className="fas fa-lock"></i>
+            <div className="eye-icon-ctn" onClick={handleTogglePasswordVisibility}>
+              {passwordVisible ? (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon icon={faEye} />
+              )}
+            </div>
+            <input
+              className="form-password"
+              ref={passwordRef}
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className={`ctn-form-password${error ? " input-error" : ""}`}>
+            <div className="lock-icon-ctn">
+              <FontAwesomeIcon icon={faLock} />
+            </div>
+            <div className="eye-icon-ctn" onClick={handleTogglePasswordVisibility}>
+              {passwordVisible ? (
+                <FontAwesomeIcon icon={faEyeSlash} />
+              ) : (
+                <FontAwesomeIcon icon={faEye} />
+                )}
               </div>
               <input
-                id="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="********"
+                className="form-password"
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Confirmar contraseña"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="form-password"
               />
-              <div className="eye-icon-ctn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                {showConfirmPassword ? <i className="far fa-eye-slash"></i> : <i className="far fa-eye"></i>}
-              </div>
             </div>
-            {error && <div className="error-message">{error}</div>}
-            <button type="submit" className="button-53">
-              Registrarse
-            </button>
+            {error && <p className="input-error-message">{error}</p>}
+            <div className="submit-ctn">
+              <button className="button-53">Registrarse</button>
+            </div>
           </form>
           <p>
             ¿Ya tienes una cuenta?{" "}
@@ -110,10 +132,8 @@ const SignUp = ({ toggleSignUp }) => {
             </span>
           </p>
         </div>
-      )}
-    </div>
-  );
-  
-};
+      </section>
+    );
+  };
 
 export default SignUp;

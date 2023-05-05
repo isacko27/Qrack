@@ -17,7 +17,7 @@
 
 .ctn {
     border-radius: 5px;
-    margin-top: 5vh;
+    margin-top: 1vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -359,3 +359,20 @@ input:focus {
     font-size: 14px;
     margin: -1em 0 0.5em 0;
 }
+
+.title {
+    min-width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* forms.css */
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  

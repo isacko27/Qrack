@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import { signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence } from "@firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence } from "@firebase/auth";
 import { auth } from "../firebaseConfig";
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import './forms.css'
@@ -78,28 +79,16 @@ setPasswordVisible(!passwordVisible);
 passwordRef.current.type = passwordRef.current.type === "password" ? "text" : "password";
 };
 
-const handleForgotPassword = async () => {
-  if (!email) {
-    setInputError(true);
-    setError("No puedes dejar esta casilla vacía");
-    return;
-  }
-  try {
-    await sendPasswordResetEmail(auth, email);
-    setError("Se ha enviado un enlace de recuperación de contraseña a tu correo electrónico.");
-  } catch (error) {
-    setInputError(true);
-    setError("Ocurrió un error al enviar el correo de recuperación");
-  }
-};
-
 
 return (
 <section className="ctn">
 	<div className="auth-container">
-  <h3>
-  <img src={QrackLogo} alt="Qrack Logo" style={{ width: "150px", height: "auto" }} />
-</h3>
+  <div className="centered-container">
+        <h3>
+          <img src={QrackLogo} alt="Qrack Logo" style={{ width: "150px", height: "auto" }} />
+        </h3>
+        <h2 className="title">Iniciar sesión</h2>
+      </div>
 		<section className="ctn-logins-grid">
     <div className="facebook-login-ctn" onClick={handleSignInWithFacebook}>
   <img src={facebookLogo} alt="Facebook" />
@@ -154,9 +143,9 @@ return (
 />
 				<label htmlFor="rememberMe">Recordarme</label>
 			</div>
-			<span onClick={handleForgotPassword} className="forgot-password-link">
-			¿Olvidaste tu contraseña?
-			</span>
+			<Link to="/resetpassword" className="forgot-password-link">
+            ¿Olvidaste tu contraseña?
+      </Link>
 		</div>
     <div className="submit-ctn">
     <button class="button-53">Aceptar</button>

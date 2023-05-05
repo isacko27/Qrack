@@ -1,11 +1,12 @@
-import { Route, Routes } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { auth } from '../firebaseConfig';
-import SignIn from './SingIn';
-import SignUp from './SingUp';
-import Welcome from './Welcome';
-import QRRedirects from './QRRedirect';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { auth } from "../firebaseConfig";
+import SignIn from "./SingIn";
+import SignUp from "./SingUp";
+import Welcome from "./Welcome";
+import PasswordReset from "./PasswordReset";
+import QRRedirects from "./QRRedirect";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Auth = () => {
   const [user, setUser] = useState(null);
@@ -26,32 +27,28 @@ const Auth = () => {
     setShowSignUp(!showSignUp);
   };
 
-  const handleLogout = () => {
-    auth.signOut();
-    setUser(null);
-  };
-
   return (
     <Routes>
       <Route path="/qr/:id" element={<QRRedirects />} />
+      <Route path="/resetpassword" element={<PasswordReset />} />
       <Route
-        path="/"
+        path="/*"
         element={
           <TransitionGroup component={null}>
             <CSSTransition
-              key={user ? 'user' : showSignUp ? 'signUp' : 'signIn'}
+              key={user ? "user" : showSignUp ? "signUp" : "signIn"}
               timeout={300}
               classNames="page"
             >
-              <div>
+              <Routes>
                 {user ? (
-                  <Welcome user={user} handleLogout={handleLogout} />
+                  <Route index element={<Welcome user={user} />} />
                 ) : showSignUp ? (
-                  <SignUp toggleSignUp={toggleSignUp} />
+                  <Route index element={<SignUp toggleSignUp={toggleSignUp} />} />
                 ) : (
-                  <SignIn toggleSignUp={toggleSignUp} />
+                  <Route index element={<SignIn toggleSignUp={toggleSignUp} />} />
                 )}
-              </div>
+              </Routes>
             </CSSTransition>
           </TransitionGroup>
         }
