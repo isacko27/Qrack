@@ -9,23 +9,30 @@ const SignUp = ({ toggleSignUp }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [qrCodeValue, setQrCodeValue] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
     }
-
+  
+    if (password.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres");
+      return;
+    }
+  
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-      
+        
       if (signInMethods.length > 0) {
         setError("El correo electrónico ya está en uso");
         return;
       }
-
+  
       const { user } = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -37,16 +44,13 @@ const SignUp = ({ toggleSignUp }) => {
       setError("Ocurrió un error al crear la cuenta");
     }
   };
-
   return (
     <div className="auth-container">
       {qrCodeValue ? (
         <div>
           <h1>Código QR</h1>
           <QRCode value={qrCodeValue} size={256} />
-          <p>
-            Escanea el código QR para acceder a tu perfil
-          </p>
+          <p>Escanea el código QR para acceder a tu perfil</p>
         </div>
       ) : (
         <div>
@@ -61,27 +65,47 @@ const SignUp = ({ toggleSignUp }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="password">Contraseña:</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="********"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="ctn-form-password">
+              <div className="password-icon-ctn">
+                <i className="fas fa-lock"></i>
+              </div>
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="********"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="form-password"
+              />
+              <div className="eye-icon-ctn" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <i className="far fa-eye-slash"></i> : <i className="far fa-eye"></i>}
+              </div>
+            </div>
             <label htmlFor="confirmPassword">Confirmar contraseña:</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              placeholder="********"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+            <div className="ctn-form-password">
+              <div className="password-icon-ctn">
+                <i className="fas fa-lock"></i>
+              </div>
+              <input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="********"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="form-password"
+              />
+              <div className="eye-icon-ctn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                {showConfirmPassword ? <i className="far fa-eye-slash"></i> : <i className="far fa-eye"></i>}
+              </div>
+            </div>
             {error && <div className="error-message">{error}</div>}
-            <button type="submit">Registrarse</button>
+            <button type="submit" className="button-53">
+              Registrarse
+            </button>
           </form>
           <p>
             ¿Ya tienes una cuenta?{" "}
-            <span onClick={toggleSignUp} className="signin-link">
+            <span onClick={toggleSignUp} className="signup-link">
               Iniciar sesión
             </span>
           </p>
@@ -89,6 +113,7 @@ const SignUp = ({ toggleSignUp }) => {
       )}
     </div>
   );
+  
 };
 
 export default SignUp;

@@ -311,7 +311,7 @@ input:focus {
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
     .or::before,
 .or::after {
     content: "";
@@ -344,4 +344,18 @@ input:focus {
 .form-email:focus,
 .form-password:focus {
   background-color: #f0f0f0; /* Cambiar el color de fondo del input cuando está enfocado */
+}
+
+.auth-ctn {
+    border-radius: 5px;
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-error-message {
+    color: red;
+    font-size: 14px;
+    margin: -1em 0 0.5em 0;
 }
