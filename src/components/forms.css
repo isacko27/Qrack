@@ -10,10 +10,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-h3 {
-    color: var(--icon-color);
-}
-
 ::selection {
     color: #fff;
     background: #5372F0;
@@ -125,6 +121,18 @@ form {
     display: flex;
     align-items: center;
     justify-content: right;
+}
+
+.ctn-form-email:focus-within,
+.ctn-form-password:focus-within {
+  outline: 2px solid #706fdd; /* Cambiar el color y grosor del borde del contenedor cuando está enfocado */
+  border: none; /* Eliminar el borde original */
+  background-color: #f0f0f0; /* Cambia el color de fondo */
+}
+
+.ctn-form-email:focus-within > .email-icon-ctn,
+.ctn-form-password:focus-within > .lock-icon-ctn {
+  color: #706fdd; /* Cambia el color del ícono cuando el input está enfocado */
 }
 
 .form-email, .form-password{
@@ -276,6 +284,7 @@ input:focus {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  transition: transform 0.3s ease-in-out;
 }
 
 .button-53:focus {
@@ -291,6 +300,10 @@ input:focus {
   width: calc(100% - 1px);
   height: calc(100% - 1px);
 }
+.button-53:hover {
+    transform: rotate(1deg); /* Rotar el botón 20 grados a la derecha */
+    transition: transform 0.3s ease-in-out; /* Agregar una transición suave al girar */
+  }
 
 .button-53:hover:after {
   bottom: 2px;
@@ -298,7 +311,7 @@ input:focus {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 400px) {
     .or::before,
 .or::after {
     content: "";
@@ -325,4 +338,10 @@ input:focus {
     align-items: center;
   }
 
+}
+
+/* Agregar esta parte al final de tu archivo CSS */
+.form-email:focus,
+.form-password:focus {
+  background-color: #f0f0f0; /* Cambiar el color de fondo del input cuando está enfocado */
 }

@@ -7,6 +7,7 @@ import './forms.css'
 import facebookLogo from "../images/facebook.png";
 import googleLogo from "../images/google.png";
 import PasswordReset from "./PasswordReset";
+import QrackLogo from "../svg/Qrack_logo.svg";
 
 
 
@@ -97,7 +98,9 @@ const handleForgotPassword = async () => {
 return (
 <section className="ctn">
 	<div className="auth-container">
-		<h3>Iniciar sesión</h3>
+  <h3>
+  <img src={QrackLogo} alt="Qrack Logo" style={{ width: "150px", height: "auto" }} />
+</h3>
 		<section className="ctn-logins-grid">
     <div className="facebook-login-ctn" onClick={handleSignInWithFacebook}>
   <img src={facebookLogo} alt="Facebook" />
