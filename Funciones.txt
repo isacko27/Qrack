@@ -1,0 +1,7 @@
+Quiero hacer una pagina web que tenga estas funcionalidades
+
+Usuarios pueden loguearse y registrarse
+se utilizara base de firebase para autenticar a los usuarios
+y que este hecha para celular
+
+dime cual es la manera mas recomendada para hacer la aplicación web segura

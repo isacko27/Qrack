@@ -1,0 +1,328 @@
+:root {
+    --primary-color: #706fdd;
+    --icon-color: #a7a7a7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+h3 {
+    color: var(--icon-color);
+}
+
+::selection {
+    color: #fff;
+    background: #5372F0;
+}
+
+.ctn {
+    border-radius: 5px;
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logins */
+
+.ctn-logins-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* una columna */
+    grid-template-rows: auto; /* altura automática */
+    gap: 20px; /* espacio entre los elementos */
+
+    /* Centrar vertical y horizontalmente los elementos */
+    align-items: center;
+    justify-content: center;
+}
+
+.facebook-login-ctn,
+.google-login-ctn {
+    max-height: 1m;
+    background-color: #385997; /* color de fondo del div */
+    padding: 0px; /* espacio interior del div */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+.facebook-login-ctn:hover {
+    background-color: #385997f6;
+}
+
+.google-login-ctn:hover {
+    background-color: #ebebeb;
+}
+
+.facebook-login-ctn img,
+.google-login-ctn img {
+    width:20% ;
+}
+
+.google-login-ctn {
+    background-color: #ffffff;
+    border: 1px solid var(--icon-color);
+}
+
+.or {
+    color: var(--icon-color);
+    position: relative;
+    z-index: 1; /* asegurarse de que el texto se superponga a las líneas */
+}
+
+.or::before,
+.or::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 10em; /* ancho de las líneas */
+    height: 1px; /* altura de las líneas */
+    background-color: var(--icon-color); /* color de las líneas */
+}
+
+.or::before {
+    left: -10px; /* posición del pseudo-elemento before */
+    transform: translateX(-100%);
+}
+
+.or::after {
+    right: -10px; /* posición del pseudo-elemento after */
+    transform: translateX(100%);
+}
+
+/* Inputs */
+
+.auth-container {
+    display: flex;
+    width: 90%;
+    max-width: 25em;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    display: inline-block;
+    width: 100%;
+}
+
+.ctn-form-email, .ctn-form-password {
+    height: auto;
+    min-height: 45px;
+    margin: 1em 0;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.form-email, .form-password{
+    border-style: none;
+    border-radius: 5px;
+    margin: 0.7em 0;
+    background-color: white; /* Cambio de color de fondo a blanco */
+    width: 92%; /* Ajuste del ancho al de sus padres */
+}
+
+input::placeholder {
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* Iconos */
+
+.email-icon-ctn,
+.password-icon-ctn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.password-icon-ctn {
+    position: absolute;
+    color: var(--icon-color);
+    width: 3em;
+    height: 100%;
+}
+
+.eye-icon-ctn {
+    position: absolute;
+    color: var(--icon-color);
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+.remember-me-container {
+    display: flex;
+    justify-content: space-between; /* Separar el contenido a los extremos */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1em; /* Agrega espacio debajo del recuerdame */
+}
+
+.email-icon-ctn {
+    position: absolute;
+    color: var(--icon-color);
+    width: 3em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 89.4%;
+  }
+  
+  .lock-icon-ctn {
+    position: absolute;
+    color: var(--icon-color);
+    right: 89.4%;
+    top: 0;
+    bottom: 0;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.signup-link, .forgot-password-link {
+    color: #3DD1E7;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signup-link:hover, .forgot-password-link:hover {
+    color: #33afc2;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Errores */
+
+  .input-error {
+    border-color: red;
+  }
+  
+  .input-error-message {
+    color: red;
+    font-size: 14px;
+    margin: -1em 0 0.5em 0;
+  }
+
+  .input-container {
+    cursor: text;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS */
+.button-53 {
+  background-color: #3DD1E7;
+  border: 0 solid #E5E7EB;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  text-decoration-thickness: auto;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-53:focus {
+  outline: 0;
+}
+
+.button-53:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #000000;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .or::before,
+.or::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 10em; /* ancho de las líneas */
+    height: 1px; /* altura de las líneas */
+    background-color: var(--icon-color); /* color de las líneas */
+}
+
+    .ctn-logins-grid {
+        grid-template-columns: 1fr; /* Cambiar a una sola columna */
+        gap: 10px;
+        
+    }
+    .facebook-login-ctn img,
+    .google-login-ctn img {
+    
+    width:10% ;
+    
+}
+.remember-me-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+}
