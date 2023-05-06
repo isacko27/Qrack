@@ -148,7 +148,7 @@ return (
       </Link>
 		</div>
     <div className="submit-ctn">
-    <button class="button-53">Aceptar</button>
+    <button className="button-53">Aceptar</button>
     </div>
 		</form>
 		<p>

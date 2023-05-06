@@ -1,9 +1,24 @@
 // firestore.js
 
-import { getFirestore, collection, getDoc,addDoc, setDoc, updateDoc, doc, getDocs, query, where, deleteDoc } from 'firebase/firestore';
+import { 
+  getFirestore,
+  collection, 
+  addDoc, 
+  updateDoc, 
+  doc, 
+  getDocs, 
+  query, 
+  where, 
+  deleteDoc } from 'firebase/firestore';
 import { app } from './firebaseConfig';
 
 const db = getFirestore(app);
+
+const checkTokenInDatabase = async (token) => {
+  const qrDoc = await findQRByToken(token);
+  return qrDoc !== null;
+};
+
 
 // Encuentra un QR por su token
 const findQRByToken = async (token) => {
@@ -15,16 +30,47 @@ const findQRByToken = async (token) => {
     return querySnapshot.docs[0];
   }
 
-  return null;
+  return null; 
+};
+
+const removeTokenFromUserQRList = async (uid, token) => {
+  const userDoc = await findUserByUid(uid);
+
+  if (userDoc) {
+    const qrList = userDoc.data().Qrlist;
+    const updatedQRList = qrList.filter((qrToken) => qrToken !== token);
+    await updateDoc(doc(db, "users", userDoc.id), { Qrlist: updatedQRList });
+  }
+};
+
+const printFirestoreDataTree = async () => {
+  // Recuperar las colecciones principales
+  const mainCollections = ['qrCodes', 'users'];
+  let dataTree = {};
+
+  for (const collectionName of mainCollections) {
+    const collectionRef = collection(db, collectionName);
+    const snapshot = await getDocs(collectionRef);
+
+    dataTree[collectionName] = {};
+
+    snapshot.forEach((doc) => {
+      const docData = doc.data();
+      dataTree[collectionName][doc.id] = docData;
+    });
+  }
+
+  console.log('Firestore Data Tree:', dataTree);
 };
 
 // Encuentra un usuario por su UID
 const findUserByUid = async (uid) => {
-  const userRef = doc(db, "users", uid);
-  const userDoc = await getDoc(userRef);
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("useruid", "==", uid));
+  const querySnapshot = await getDocs(q);
 
-  if (userDoc.exists()) {
-    return userDoc;
+  if (!querySnapshot.empty) {
+    return querySnapshot.docs[0];
   }
 
   return null;
@@ -36,8 +82,23 @@ const addTokenToUserQRList = async (uid, token) => {
 
   if (userDoc) {
     const qrList = userDoc.data().Qrlist;
-    qrList.push(token);
-    await updateDoc(doc(db, "users", uid), { Qrlist: qrList });
+
+    // Verifica si el token ya está en la lista
+    if (!qrList.includes(token)) {
+      qrList.push(token);
+      await updateDoc(doc(db, "users", userDoc.id), { Qrlist: qrList });
+    }
+  }
+};
+
+// Elimina un token de QRlist de un usuario dado su useruid y el token a eliminar
+const deleteTokenFromUserQRList = async (useruid, token) => {
+  const userDoc = await findUserByUid(useruid);
+
+  if (userDoc) {
+    const qrList = userDoc.data().Qrlist;
+    const updatedQRList = qrList.filter((qrToken) => qrToken !== token);
+    await updateDoc(doc(db, "users", userDoc.id), { Qrlist: updatedQRList });
   }
 };
 
@@ -72,4 +133,10 @@ export {
   addTokenToUserQRList,
   updateQRUrl,
   updateQRName,
+  printFirestoreDataTree,
+  checkTokenInDatabase,
+  removeTokenFromUserQRList,
+  updateDoc,
+  doc,
+  deleteTokenFromUserQRList
 };

@@ -1,59 +1,53 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate} from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { auth } from "../firebaseConfig";
+import PasswordReset from "./PasswordReset";
 import SignIn from "./SingIn";
 import SignUp from "./SingUp";
 import Welcome from "./Welcome";
-import PasswordReset from "./PasswordReset";
-import QRRedirects from "./QRRedirect";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-const Auth = () => {
-  const [user, setUser] = useState(null);
+
+const Auth = ({ user }) => {
   const [showSignUp, setShowSignUp] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (user || isLoggedIn) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const toggleSignUp = () => {
     setShowSignUp(!showSignUp);
   };
 
   return (
-    <Routes>
-      <Route path="/qr/:id" element={<QRRedirects />} />
-      <Route path="/resetpassword" element={<PasswordReset />} />
-      <Route
-        path="/*"
-        element={
-          <TransitionGroup component={null}>
-            <CSSTransition
-              key={user ? "user" : showSignUp ? "signUp" : "signIn"}
-              timeout={300}
-              classNames="page"
-            >
-              <Routes>
-                {user ? (
-                  <Route index element={<Welcome user={user} />} />
-                ) : showSignUp ? (
-                  <Route index element={<SignUp toggleSignUp={toggleSignUp} />} />
-                ) : (
-                  <Route index element={<SignIn toggleSignUp={toggleSignUp} />} />
-                )}
-              </Routes>
-            </CSSTransition>
-          </TransitionGroup>
-        }
-      />
-    </Routes>
+    <TransitionGroup component={null}>
+      <CSSTransition
+        key={user ? "user" : showSignUp ? "signUp" : "signIn"}
+        timeout={300}
+        classNames="page"
+      >
+        <Routes>
+          <Route
+            path="/"
+            element={
+              user ? (
+                <Welcome user={user} />
+              ) : showSignUp ? (
+                <SignUp toggleSignUp={toggleSignUp} />
+              ) : (
+                <SignIn toggleSignUp={toggleSignUp} />
+              )
+            }
+          />
+          <Route path="/resetpassword" element={<PasswordReset />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 

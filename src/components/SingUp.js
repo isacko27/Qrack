@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "@firebase/auth";
 import { auth } from "../firebaseConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,24 @@ const SignUp = ({ toggleSignUp }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const passwordRef = useRef(null);
   
+  const signInWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error('Error al iniciar sesión con Google:', error);
+    }
+  };
+  
+  const signInWithFacebook = async () => {
+    try {
+      const provider = new FacebookAuthProvider();
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error('Error al iniciar sesión con Facebook:', error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -58,15 +76,14 @@ const SignUp = ({ toggleSignUp }) => {
         </h3>
         <h2 className="title">Registrarse</h2>
       </div>
-        <section className="ctn-logins-grid">
-          <div className="facebook-login-ctn">
-            <img src={facebookLogo} alt="Facebook" />
-          </div>
-          <div className="google-login-ctn">
-            <img src={googleLogo} alt="Google" />
-          </div>
-        </section>
-
+      <section className="ctn-logins-grid">
+  <div className="facebook-login-ctn" onClick={signInWithFacebook}>
+    <img src={facebookLogo} alt="Facebook" />
+  </div>
+  <div className="google-login-ctn" onClick={signInWithGoogle}>
+    <img src={googleLogo} alt="Google" />
+  </div>
+</section>
         <span className="or">or</span>
         <form onSubmit={handleSubmit}>
         <div className={`ctn-form-email${error ? " input-error" : ""}`}>
