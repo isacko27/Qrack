@@ -18,9 +18,9 @@ const Welcome = ({ user }) => {
       querySnapshot.forEach((docSnapshot) => {
         setUsername(docSnapshot.data().username);
       });
-      navigate('/dashboard'); // Navega a Dashboard
+      navigate(`/dashboard/${user.uid}`); // Incluye el user.uid en la ruta
     }
-  }, [user.email, navigate]);
+  }, [user.email, navigate, user.uid]);
 
   useEffect(() => {
     fetchUsername();
@@ -34,7 +34,7 @@ const Welcome = ({ user }) => {
         username,
         Qrlist: [], // Agrega una lista vacía de Qrlist
       });
-      navigate('/dashboard'); // Navega a Dashboard
+      navigate(`/dashboard/${user.uid}`); // Navega a Dashboard
     }
   };
 

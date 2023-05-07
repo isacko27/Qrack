@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { PulseLoader } from 'react-spinners';
+import {SyncLoader} from 'react-spinners';
 
 const Spinner = ({ loading }) => {
   const override = css`
@@ -10,9 +10,7 @@ const Spinner = ({ loading }) => {
   `;
 
   return (
-    <div className="spinner">
-      <PulseLoader color="#4CAF50" loading={loading} css={override} size={15} />
-    </div>
+      <SyncLoader color="#4CAF50" loading={loading} css={override} size={30} />
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence } from "@firebase/auth";
 import { auth } from "../firebaseConfig";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import './forms.css'
@@ -17,6 +17,7 @@ const [password, setPassword] = useState("");
 const [error, setError] = useState("");
 const [rememberMe] = useState(false);
 const [inputError, setInputError] = useState(false);
+const navigate = useNavigate();
 
 const handleRememberMeChange = async (e) => {
   try {
@@ -43,6 +44,7 @@ const handleSubmit = async (e) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    navigate('/welcome'); // Añade esta línea
   } catch (error) {
     let errorMessage = "Ocurrió un error. Por favor, inténtalo de nuevo.";
     if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {

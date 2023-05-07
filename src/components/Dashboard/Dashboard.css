@@ -75,6 +75,22 @@
     text-align: center;
     color: #4CAF50;
     font-size: 0.9em;
+    word-wrap: break-word;
+    overflow-y: auto;
+    height: 3em;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color:#4CAF50;
+    border-radius: 6px;
   }
 
 .Qr-add-Button-container{
