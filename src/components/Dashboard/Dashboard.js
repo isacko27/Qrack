@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { QRCodeSVG } from "qrcode.react";
+import QRdesign from "../QRdesign/QRdesign";
 import Navbar from "../Navbar/NavBar";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import Spinner from "../LoadingScreen/Spinner";
@@ -87,6 +87,9 @@ const Dashboard = ({ user }) => {
     printFirestoreDataTree();
   }, [uid, loadQRCodes]);
 
+// Codigo QR personalizado
+
+
   return (
   <div className="dashboard">
     <Navbar />
@@ -95,7 +98,7 @@ const Dashboard = ({ user }) => {
       {qrCodes.map((qrCode, index) => (
         <section key={index} className="QRCODE Box">
           <div className="Qrimage-container">
-            <QRCodeSVG value={`${getDomain()}/qr/${qrCode.token}`} />
+          <QRdesign value={`${getDomain()}/qr/${qrCode.token}`} />
           </div>
           <div className="Qrcode-information-container">
             <h3 className="QRCODE-name">{qrCode.Qrnombre}</h3>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaTimesCircle } from "react-icons/fa";
 import Spinner from "../LoadingScreen/Spinner";
-import { findQRByToken, findUserByUid } from "../../firestore";
+import { findQRByToken} from "../../firestore";
 import './QRRedirect.css';
 
 const QRRedirect = () => {

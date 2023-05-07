@@ -43,6 +43,18 @@ const removeTokenFromUserQRList = async (uid, token) => {
   }
 };
 
+const findAdminByUid = async (uid) => {
+  const adminsRef = collection(db, "admins");
+  const q = query(adminsRef, where("uid", "==", uid));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+    return querySnapshot.docs[0];
+  }
+
+  return null;
+};
+
 const printFirestoreDataTree = async () => {
   // Recuperar las colecciones principales
   const mainCollections = ['qrCodes', 'users'];
@@ -120,6 +132,26 @@ const updateQRName = async (token, newName) => {
   }
 };
 
+  const getAllAdmins = async () => {
+  const adminsRef = collection(db, "admins");
+  const adminSnapshot = await getDocs(adminsRef);
+  const adminList = adminSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return adminList;
+};
+
+const getAllUsers = async () => {
+  const usersRef = collection(db, "users");
+  const userSnapshot = await getDocs(usersRef);
+  const userList = userSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return userList;
+};
+
 export {
   addDoc,
   deleteDoc,
@@ -138,5 +170,8 @@ export {
   removeTokenFromUserQRList,
   updateDoc,
   doc,
-  deleteTokenFromUserQRList
+  deleteTokenFromUserQRList,
+  findAdminByUid,
+  getAllAdmins,
+  getAllUsers
 };
