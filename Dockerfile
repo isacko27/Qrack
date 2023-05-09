@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+COPY public /app/public
 RUN npm run build
 
 # Fase de producción
@@ -13,4 +14,4 @@ COPY --from=build /app/build /app/build
 COPY package*.json ./
 RUN npm install --only=production
 EXPOSE 80
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:prod"]
