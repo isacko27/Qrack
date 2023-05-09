@@ -12,6 +12,8 @@ import {
 } from "../../firestore";
 import "./Dashboard.css";
 import { useParams} from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = ({ user }) => {
   const [qrCodes, setQRCodes] = useState([]);
@@ -106,18 +108,18 @@ const Dashboard = ({ user }) => {
             <div className="token-div">{qrCode.token}</div>
           </div>
           <div className="Edit-QR-BUTTON-container">
-            <button
-              className="EditQR-button btn btn-primary"
-              onClick={() => openQRModal("edit", qrCode)}
-            >
-              Editar
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => openDeleteConfirmation(qrCode)}
-            >
-              Eliminar
-            </button>
+          <button
+            className="EditQR-button btn btn-primary"
+            onClick={() => openQRModal("edit", qrCode)}
+          >
+            <FontAwesomeIcon icon={faPencilAlt} /> Editar
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => openDeleteConfirmation(qrCode)}
+          >
+            <FontAwesomeIcon icon={faTrash} /> Eliminar
+          </button>
           </div>
         </section>
       ))}

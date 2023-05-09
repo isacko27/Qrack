@@ -44,7 +44,7 @@ const handleSubmit = async (e) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    navigate('/welcome'); // Añade esta línea
+    navigate('/'); // Añade esta línea
   } catch (error) {
     let errorMessage = "Ocurrió un error. Por favor, inténtalo de nuevo.";
     if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {

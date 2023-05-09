@@ -9,7 +9,6 @@ import PasswordReset from "./PasswordReset";
 import QRRedirects from "./QRRedirect/QRRedirect";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Dashboard from "./Dashboard/Dashboard";
-import DashboardAdmin from "./admin/DashboardAdmin"; // Importa el componente DashboardAdmin
 
 const Auth = () => {
   const [user, setUser] = useState(null);
@@ -43,7 +42,6 @@ const Auth = () => {
       <Route path="/qr/:value" element={<QRRedirects />} />
       <Route path="/resetpassword" element={<PasswordReset />} />
       <Route path="/dashboard/:uid" element={<Dashboard user={user} />} />
-      <Route path="/dashboard/admin" element={<DashboardAdmin />} />
       <Route
         path="/*"
         element={
