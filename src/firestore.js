@@ -70,7 +70,6 @@ const printFirestoreDataTree = async () => {
     });
   }
 
-  console.log('Firestore Data Tree:', dataTree);
 };
 
 // Encuentra un usuario por su UID
