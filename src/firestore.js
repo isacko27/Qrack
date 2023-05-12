@@ -1,5 +1,3 @@
-// firestore.js
-
 import { 
   getFirestore,
   collection, 

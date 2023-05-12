@@ -26,8 +26,6 @@ const Dashboard = ({ user }) => {
   const [deleting, setDeleting] = useState(false);
   const { uid } = useParams();
   const routeuid = user ? user.uid : null;
-  console.log(uid)
-  console.log(routeuid)
 
   const openQRModal = (type, qr = null) => {
     setModalType(type);
@@ -65,16 +63,13 @@ const Dashboard = ({ user }) => {
       const userDoc = await findUserByUid(uid);
       if (userDoc && userDoc.exists) {
         const qrList = userDoc.data().Qrlist;
-        console.log("qrList:", qrList); // Muestra la lista de tokens QR
         const qrCodeDocs = await Promise.all(
           qrList.map((token) => findQRByToken(token))
         );
         const qrCodesData = qrCodeDocs.map((doc) => doc.data());
-        console.log("qrCodesData:", qrCodesData); // Muestra la colección de códigos QR
         setQRCodes(qrCodesData);
         setLoading(false);
       } else {
-        console.error("User document not found");
       }
     }
   }, [uid]);
