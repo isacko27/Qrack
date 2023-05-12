@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/static/css/main.0ca2fa1c.css",
-    "main.js": "/static/js/main.7a3875d0.js",
+    "main.js": "/static/js/main.2dab6dd0.js",
     "static/js/496.c273465e.chunk.js": "/static/js/496.c273465e.chunk.js",
     "static/media/google.png": "/static/media/google.9559747b37f156384069.png",
     "static/media/Qrack_logo.svg": "/static/media/Qrack_logo.ff617a63ea83edaf06b56f3ce49f2e54.svg",
     "static/media/Qrack_logo_White.svg": "/static/media/Qrack_logo_White.4b565e6ed095d9f08c790a91e91df69c.svg",
     "index.html": "/index.html",
     "main.0ca2fa1c.css.map": "/static/css/main.0ca2fa1c.css.map",
-    "main.7a3875d0.js.map": "/static/js/main.7a3875d0.js.map",
+    "main.2dab6dd0.js.map": "/static/js/main.2dab6dd0.js.map",
     "496.c273465e.chunk.js.map": "/static/js/496.c273465e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0ca2fa1c.css",
-    "static/js/main.7a3875d0.js"
+    "static/js/main.2dab6dd0.js"
   ]
 }
