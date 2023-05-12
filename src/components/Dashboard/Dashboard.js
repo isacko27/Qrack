@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import QRdesign from "../QRdesign/QRdesign";
+import { QRCodeSVG } from "qrcode.react";
 import Navbar from "../Navbar/NavBar";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import Spinner from "../LoadingScreen/Spinner";
@@ -12,8 +12,6 @@ import {
 } from "../../firestore";
 import "./Dashboard.css";
 import { useParams} from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = ({ user }) => {
   const [qrCodes, setQRCodes] = useState([]);
@@ -26,6 +24,8 @@ const Dashboard = ({ user }) => {
   const [deleting, setDeleting] = useState(false);
   const { uid } = useParams();
   const routeuid = user ? user.uid : null;
+  console.log(uid)
+  console.log(routeuid)
 
   const openQRModal = (type, qr = null) => {
     setModalType(type);
@@ -63,13 +63,16 @@ const Dashboard = ({ user }) => {
       const userDoc = await findUserByUid(uid);
       if (userDoc && userDoc.exists) {
         const qrList = userDoc.data().Qrlist;
+        console.log("qrList:", qrList); // Muestra la lista de tokens QR
         const qrCodeDocs = await Promise.all(
           qrList.map((token) => findQRByToken(token))
         );
         const qrCodesData = qrCodeDocs.map((doc) => doc.data());
+        console.log("qrCodesData:", qrCodesData); // Muestra la colección de códigos QR
         setQRCodes(qrCodesData);
         setLoading(false);
       } else {
+        console.error("User document not found");
       }
     }
   }, [uid]);
@@ -84,9 +87,6 @@ const Dashboard = ({ user }) => {
     printFirestoreDataTree();
   }, [uid, loadQRCodes]);
 
-// Codigo QR personalizado
-
-
   return (
   <div className="dashboard">
     <Navbar />
@@ -95,7 +95,7 @@ const Dashboard = ({ user }) => {
       {qrCodes.map((qrCode, index) => (
         <section key={index} className="QRCODE Box">
           <div className="Qrimage-container">
-          <QRdesign value={`${getDomain()}/qr/${qrCode.token}`} />
+            <QRCodeSVG value={`${getDomain()}/qr/${qrCode.token}`} />
           </div>
           <div className="Qrcode-information-container">
             <h3 className="QRCODE-name">{qrCode.Qrnombre}</h3>
@@ -103,18 +103,18 @@ const Dashboard = ({ user }) => {
             <div className="token-div">{qrCode.token}</div>
           </div>
           <div className="Edit-QR-BUTTON-container">
-          <button
-            className="EditQR-button btn btn-primary"
-            onClick={() => openQRModal("edit", qrCode)}
-          >
-            <FontAwesomeIcon icon={faPencilAlt} /> Editar
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => openDeleteConfirmation(qrCode)}
-          >
-            <FontAwesomeIcon icon={faTrash} /> Eliminar
-          </button>
+            <button
+              className="EditQR-button btn btn-primary"
+              onClick={() => openQRModal("edit", qrCode)}
+            >
+              Editar
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => openDeleteConfirmation(qrCode)}
+            >
+              Eliminar
+            </button>
           </div>
         </section>
       ))}
