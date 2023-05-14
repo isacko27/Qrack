@@ -116,3 +116,17 @@
     font-size: 30px;  
     width: 100%;
   }
+
+  /* Estilos para dispositivos móviles */
+@media screen and (max-width: 600px) {
+  .Qr-add-Button-container {
+    width: 250px; /* El mismo ancho que .QRCODE */
+    display: flex;
+    justify-content: center;
+  }
+  .qr-grid {
+    display: flex;
+    justify-content: center;
+  }
+
+}
