@@ -24,6 +24,7 @@ const Dashboard = ({ user }) => {
   const [qrCodeToDelete, setQRCodeToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const uid = user ? user.uid : null;
+  
 
   const openQRModal = (type, qr = null) => {
     setModalType(type);
@@ -79,15 +80,26 @@ const Dashboard = ({ user }) => {
   }
 
   useEffect(() => {
+    // Se establece un temporizador de 6 segundos
+    const timer = setTimeout(() => {
+      // Si el tiempo se agota, redirige al usuario
+      window.location.href = "/";
+    }, 6000);
+
     loadQRCodes();
     printFirestoreDataTree();
-  }, [uid, loadQRCodes]);
 
+    return () => {
+      // Cuando la página termine de cargar, se limpia el temporizador
+      clearTimeout(timer);
+    };
+  }, [uid, loadQRCodes]);
 // Codigo QR personalizado
 
-
+console.log(printFirestoreDataTree())
   return (
   <div className="dashboard">
+
     <Navbar />
     {loading && <Spinner /> && <LoadingScreen />}
     <article className={loading ? "qr-grid hidden" : "qr-grid"}>
