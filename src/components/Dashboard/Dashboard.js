@@ -121,10 +121,13 @@ const Dashboard = ({ user }) => {
         </section>
       ))}
       <section className="Qr-add-Button-container">
+        <div className="box-add-ctn">
+        <label className="Add-qr-title">Agregar QR</label>
         <div className="Add-QR-BUTTON-container">
           <div className="buttonadd-qr" onClick={() => openQRModal("add")}>
             +
           </div>
+        </div>
         </div>
       </section>
     </article>

@@ -103,6 +103,22 @@
   display: flex;
   width: 250px;
   justify-content: center;
+  background-color: #68bb6b56;
+  flex-direction: column;
+  border-radius: 10px;
+  height: 23.1em;
+}
+
+.box-add-ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.Add-qr-title {
+  color:#4CAF50;
+  font-weight: bolder;
 }
 
   .Add-QR-BUTTON-container{
@@ -146,7 +162,7 @@
   }
 
   /* Estilos para dispositivos móviles */
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 545px) {
   .Qr-add-Button-container {
     width: 250px; /* El mismo ancho que .QRCODE */
     display: flex;
@@ -155,6 +171,14 @@
   .qr-grid {
     display: flex;
     justify-content: center;
+  }
+
+  .Qr-add-Button-container{
+    height: 10em;
+  }
+
+  .box-add-ctn {
+    margin-bottom: 1em;
   }
 
 }

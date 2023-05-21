@@ -92,6 +92,9 @@ const QRModal = ({
       setToken(selectedQR.token);
       setQRName(selectedQR.Qrnombre);
       setQRUrl(selectedQR.url);
+      setStep(2); // Añade esta línea
+    } else {
+      setStep(1); // Añade esta línea para asegurarte de que `step` se resetea a 1 cuando no hay un QR seleccionado.
     }
   }, [selectedQR]);
 
