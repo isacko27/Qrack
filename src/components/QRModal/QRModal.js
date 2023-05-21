@@ -12,7 +12,7 @@ const QRModal = ({
   type,
   closeModal,
   uid,
-  setQRCodes, // Asegúrate de que setQRCodes se esté utilizando aquí
+  setQRCodes,
   selectedQR,
 }) => {
   const [step, setStep] = useState(1);
@@ -25,7 +25,7 @@ const QRModal = ({
 
 
   const handleTokenSubmit = async () => {
-    setError(''); // Limpia el mensaje de error
+    setError('');
     setLoading(true);
     const qrCodeDoc = await findQRByToken(token);
     setLoading(false);
@@ -35,6 +35,20 @@ const QRModal = ({
       setStep(2);
       setQRName(qrCodeData.Qrnombre);
       setQRUrl(qrCodeData.url);
+
+      if (type === "add") {
+        const userDoc = await findUserByUid(uid);
+        if (userDoc && userDoc.exists) {
+          const userQRList = userDoc.data().Qrlist;
+          if (userQRList.includes(token)) {
+            setError("Ya estás usando este código QR.");
+            return;
+          }
+          await addTokenToUserQRList(uid, token);
+          const newQRCode = { token: token, Qrnombre: qrName, url: qrUrl };
+          setQRCodes((prevQRCodes) => [...prevQRCodes, newQRCode]);
+        }
+      }
     } else {
       setError('No se encontró el código QR con el token ingresado.');
     }
@@ -52,16 +66,6 @@ const QRModal = ({
   }
 
   const handleFinalSubmit = async () => {
-    if (type === "add") {
-      const userDoc = await findUserByUid(uid);
-      if (userDoc && userDoc.exists) {
-        const userQRList = userDoc.data().Qrlist;
-        if (userQRList.includes(token)) {
-          setError("Ya estás usando este código QR.");
-          return;
-        }
-      }
-    }
     setError("");
     setUpdating(true);
   
@@ -70,11 +74,7 @@ const QRModal = ({
       await updateQRName(token, qrName);
     }
   
-    if (type === "add") {
-      await addTokenToUserQRList(uid, token);
-      const newQRCode = { token: token, Qrnombre: qrName, url: qrUrl };
-      setQRCodes((prevQRCodes) => [...prevQRCodes, newQRCode]);
-    } else if (type === "edit") {
+    if (type === "edit") {
       const updatedQRCode = { token: token, Qrnombre: qrName, url: qrUrl };
       setQRCodes((prevQRCodes) =>
         prevQRCodes.map((qrCode) =>
@@ -92,11 +92,19 @@ const QRModal = ({
       setToken(selectedQR.token);
       setQRName(selectedQR.Qrnombre);
       setQRUrl(selectedQR.url);
+<<<<<<< HEAD
       setStep(2); // Añade esta línea
     } else {
       setStep(1); // Añade esta línea para asegurarte de que `step` se resetea a 1 cuando no hay un QR seleccionado.
+=======
+      if (type === 'edit') {
+        setStep(2);
+      }
+    } else {
+      setStep(1);
+>>>>>>> de31480d1b846795b3d9b656da4ef57d0c16f6c9
     }
-  }, [selectedQR]);
+  }, [selectedQR, type]);
 
   return (
     <div className="qr-modal qr-modal-transition">
@@ -171,3 +179,4 @@ const QRModal = ({
 };
 
 export default QRModal;
+
