@@ -99,7 +99,10 @@ const Dashboard = ({ user }) => {
           <div className="Qrcode-information-container">
             <h3 className="QRCODE-name">{qrCode.Qrnombre}</h3>
             <p className="QRCODE-URL">{qrCode.url}</p>
-            <div className="token-div">{qrCode.token}</div>
+            <p className="token-title">Token</p>
+            <div className="token-div">
+            <p className="token">{qrCode.token}</p>
+            </div>
           </div>
           <div className="Edit-QR-BUTTON-container">
           <button

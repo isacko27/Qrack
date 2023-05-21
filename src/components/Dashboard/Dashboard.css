@@ -53,14 +53,19 @@
 
   .QRCODE-name{
     text-align: center;
+    border-bottom: 1px solid #ccc;
+    font-size: 25px;
   }
   
   .Qrcode-information-container {
+    border-top: 1px solid #ccc;
     margin-top: 8px;
   }
   
   .Edit-QR-BUTTON-container {
     margin-top: 16px;
+    display: flex;
+    justify-content: space-around;
   }
 
   .EditQR-button{
@@ -96,6 +101,8 @@
 .Qr-add-Button-container{
   align-items: center;
   display: flex;
+  width: 250px;
+  justify-content: center;
 }
 
   .Add-QR-BUTTON-container{
@@ -117,8 +124,29 @@
     width: 100%;
   }
 
+  .token-title {
+    text-align: center;
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .token-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 2em;
+    align-items: center;
+  }
+
+  .token-div p {
+    font-weight: bolder;
+    margin: 0;
+  }
+
   /* Estilos para dispositivos móviles */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 550px) {
   .Qr-add-Button-container {
     width: 250px; /* El mismo ancho que .QRCODE */
     display: flex;
