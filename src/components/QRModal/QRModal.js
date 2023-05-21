@@ -40,6 +40,17 @@ const QRModal = ({
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (step === 1) {
+        handleTokenSubmit();
+      } else if (step === 2) {
+        handleFinalSubmit();
+      }
+    }
+  }
+
   const handleFinalSubmit = async () => {
     if (type === "add") {
       const userDoc = await findUserByUid(uid);
@@ -90,7 +101,7 @@ const QRModal = ({
         {step === 1 && (
           <>
             <h2>Ingrese el Token</h2>
-            <form>
+            <form onKeyDown={handleKeyDown}>
               <div className="form-group">
                 <label htmlFor="token">Token</label>
                 <input
@@ -115,7 +126,7 @@ const QRModal = ({
         {step === 2 && (
           <>
             <h2>Editar Código QR</h2>
-            <form>
+            <form onKeyDown={handleKeyDown}>
               <div className="form-group">
                 <label htmlFor="qr-name">Nombre (opcional)</label>
                 <input
